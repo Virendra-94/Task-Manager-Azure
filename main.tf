@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
+  name     = "react-firebase-rg"
   location = var.location
 }
 
