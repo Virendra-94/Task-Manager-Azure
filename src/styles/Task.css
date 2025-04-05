@@ -1,0 +1,39 @@
+.task-item {
+    margin: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+  }
+  
+  .edit-button,
+  .delete-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    margin-top: 8px;
+  }
+  
+  .edit-button:hover,
+  .delete-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .edit-button:focus,
+  .delete-button:focus {
+    outline: none;
+  }
+  
+  .edit-button:active,
+  .delete-button:active {
+    transform: translateY(1px);
+  }
