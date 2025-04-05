@@ -36,15 +36,20 @@ pipeline {
         }
 
         stage('Generate terraform.tfvars') {
-            steps {
-                bat """
-                echo subscription_id="%ARM_SUBSCRIPTION_ID%" > terraform.tfvars
-                echo client_id="%ARM_CLIENT_ID%" >> terraform.tfvars
-                echo client_secret="%ARM_CLIENT_SECRET%" >> terraform.tfvars
-                echo tenant_id="%ARM_TENANT_ID%" >> terraform.tfvars
-                """
-            }
-        }
+    steps {
+        bat '''
+            echo subscription_id="${ARM_SUBSCRIPTION_ID}" > terraform.tfvars
+            echo client_id="${ARM_CLIENT_ID}" >> terraform.tfvars
+            echo client_secret="${ARM_CLIENT_SECRET}" >> terraform.tfvars
+            echo tenant_id="${ARM_TENANT_ID}" >> terraform.tfvars
+            echo resource_group_name="react-firebase-rg" >> terraform.tfvars
+            echo location="East US" >> terraform.tfvars
+            echo app_service_plan="react-plan-viren" >> terraform.tfvars
+            echo web_app_name="react-firebase-app-viren" >> terraform.tfvars
+        '''
+    }
+}
+
 
         stage('Terraform Apply') {
             steps {
