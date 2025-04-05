@@ -21,11 +21,18 @@ pipeline {
             }
         }
 
-        stage('Terraform Plan') {
-            steps {
-                bat 'terraform plan -var-file="terraform.tfvars"'
-            }
-        }
+       stage('Terraform Plan') {
+    steps {
+        bat """
+            terraform plan ^
+              -var subscription_id=%ARM_SUBSCRIPTION_ID% ^
+              -var client_id=%ARM_CLIENT_ID% ^
+              -var client_secret=%ARM_CLIENT_SECRET% ^
+              -var tenant_id=%ARM_TENANT_ID%
+        """
+    }
+}
+
 
         stage('Terraform Apply') {
             steps {
