@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd';
+import {useDrop } from 'react-dnd';
 import Task from './Task';
 import TaskForm from './TaskForm';
 import { editTask, deleteTask, reorderTasks } from '../actions/taskActions';
