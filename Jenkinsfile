@@ -6,6 +6,8 @@ pipeline {
         ARM_CLIENT_SECRET   = credentials('AZURE_CLIENT_SECRET')
         ARM_SUBSCRIPTION_ID = credentials('AZURE_SUBSCRIPTION_ID')
         ARM_TENANT_ID       = credentials('AZURE_TENANT_ID')
+        resource_group_name = 'react-firebase-rg' // <-- set this
+        web_app_name        = 'react-firebase-app-viren'    // <-- set this
     }
 
     stages {
@@ -21,18 +23,28 @@ pipeline {
             }
         }
 
-       stage('Terraform Plan') {
-    steps {
-        bat """
-            terraform plan ^
-              -var subscription_id=%ARM_SUBSCRIPTION_ID% ^
-              -var client_id=%ARM_CLIENT_ID% ^
-              -var client_secret=%ARM_CLIENT_SECRET% ^
-              -var tenant_id=%ARM_TENANT_ID%
-        """
-    }
-}
+        stage('Terraform Plan') {
+            steps {
+                bat """
+                    terraform plan ^
+                      -var subscription_id=%ARM_SUBSCRIPTION_ID% ^
+                      -var client_id=%ARM_CLIENT_ID% ^
+                      -var client_secret=%ARM_CLIENT_SECRET% ^
+                      -var tenant_id=%ARM_TENANT_ID%
+                """
+            }
+        }
 
+        stage('Generate terraform.tfvars') {
+            steps {
+                bat """
+                echo subscription_id="%ARM_SUBSCRIPTION_ID%" > terraform.tfvars
+                echo client_id="%ARM_CLIENT_ID%" >> terraform.tfvars
+                echo client_secret="%ARM_CLIENT_SECRET%" >> terraform.tfvars
+                echo tenant_id="%ARM_TENANT_ID%" >> terraform.tfvars
+                """
+            }
+        }
 
         stage('Terraform Apply') {
             steps {
@@ -50,7 +62,7 @@ pipeline {
 
                 bat """
                 az login --service-principal -u %ARM_CLIENT_ID% -p %ARM_CLIENT_SECRET% --tenant %ARM_TENANT_ID%
-                az webapp deploy --resource-group ${env.resource_group_name} --name ${env.web_app_name} --src-path react.zip --type zip
+                az webapp deploy --resource-group %resource_group_name% --name %web_app_name% --src-path react.zip --type zip
                 """
             }
         }
