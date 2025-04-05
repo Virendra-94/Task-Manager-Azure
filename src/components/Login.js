@@ -1,5 +1,5 @@
 import React from "react";
-import { auth, googleAuthProvider } from "../authService";
+import {googleAuthProvider } from "../authService";
 import { signInWithPopup, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
