@@ -62,7 +62,7 @@ pipeline {
             steps {
                 dir('react-app') {
                     bat 'npm install'
-                    bat 'npm run build'
+                    bat 'set CI=false && npm run build'
                     bat 'dir build' // <--- ADD THIS to confirm build folder was created
                     // With this:
                     bat '''
