@@ -64,9 +64,11 @@ pipeline {
                     bat 'npm install'
                     bat 'npm run build'
                     bat 'dir build' // <--- ADD THIS to confirm build folder was created
+                    // With this:
                     bat '''
                         echo "Zipping build folder..."
-                        powershell Compress-Archive -Path react-app\\build\\* -DestinationPath react.zip
+                        $fullPath = Resolve-Path "react-app\\build\\*"
+                        Compress-Archive -Path $fullPath -DestinationPath react.zip
                         '''
                 }
 
