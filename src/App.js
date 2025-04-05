@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import { AuthProvider, useAuth } from './AuthContext';
 import './styles/App.css'; // Import the CSS file
-import Task from './components/Task';
+
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
